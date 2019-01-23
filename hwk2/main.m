@@ -38,7 +38,7 @@ EffFront_b = effFont(V_stk,R_stk_b,0.01,2);
 plot1B;
 
 %Part c
-V_stk_c1 = diag(std_stk);
+V_stk_c1 = diag(std_stk.^2);
 
 EffFront_c1 = effFont(V_stk_c1,R_stk,0.01,2);
 
