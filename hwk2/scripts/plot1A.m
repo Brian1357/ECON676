@@ -7,7 +7,8 @@ scatter(MVP(2),MVP(1),70,'r','filled');
 scatter(TP(2),TP(1),50,'r','filled');
 hold off
 legend('Efficient Frontier','10 industries');
-labelpoints([MVP(2) TP(2)],[MVP(1) TP(1)],{'MVP','Tangency Portfolio'});
+labelpoints(MVP(2),MVP(1),{'MVP'});
+labelpoints(TP(2),TP(1),{'Tangency Portfolio'});
 ylabel('Expected Return(%)');
 xlabel('Standard Deviation(%)');
 box off; grid on;

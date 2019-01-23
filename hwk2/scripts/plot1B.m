@@ -7,7 +7,8 @@ scatter(MVP_b(2),MVP_b(1),70,'r','filled');
 scatter(TP_b(2),TP_b(1),50,'r','filled');
 hold off
 legend('Efficient Frontier(new)','10 industries(new)');
-labelpoints([MVP_b(2) TP_b(2)],[MVP_b(1) TP_b(1)],{'MVP(new)','Tangency Portfolio(new)'});
+labelpoints(MVP_b(2),MVP_b(1),{'MVP(new)'},'position','E');
+labelpoints(TP_b(2),TP_b(1),{'Tangency Portfolio(new)'},'position','E');
 ylabel('Expected Return(%)');
 xlabel('Standard Deviation(%)');
 box off; grid on;
@@ -27,8 +28,10 @@ hold off
 
 legend('Efficient Frontier','Efficient Frontier(new)','10 industries',...
     '10 industries(new)');
-labelpoints([MVP(2) TP(2)],[MVP(1) TP(1)],{'MVP','Tangency Portfolio'});
-labelpoints([MVP_b(2) TP_b(2)],[MVP_b(1) TP_b(1)],{'MVP(new)','Tangency Portfolio(new)'});
+labelpoints(MVP(2),MVP(1),{'MVP'},'position','SW');
+labelpoints(TP(2),TP(1),{'Tangency Portfolio'},'position','E');
+labelpoints(MVP_b(2),MVP_b(1),{'MVP(new)'});
+labelpoints(TP_b(2),TP_b(1),{'Tangency Portfolio(new)'},'position','E');
 ylabel('Expected Return(%)');
 xlabel('Standard Deviation(%)');
 box off; grid on;

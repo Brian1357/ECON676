@@ -1,6 +1,6 @@
 f1 = figure;
 set(f1,'units','normalized','outerposition',[0 0 1 1]);
-plot(EffFront(75:110,2),EffFront(75:110,1));
+plot(EffFront(85:100,2),EffFront(85:100,1));
 hold on
 scatter(MVP_list(2,:),MVP_list(1,:),'k');
 scatter(MVP(2),MVP(1),'r','filled');

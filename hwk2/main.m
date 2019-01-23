@@ -20,6 +20,7 @@ V_stk = cov(stocks);
 R_stk = (mean(stocks))';
 R_rf = mean(rf);
 std_stk = (std(stocks))';
+one_vec = ones(length(R_stk),1);
 
 [MVP,TP] = MVTP(R_stk,R_rf,V_stk);
 
@@ -28,11 +29,11 @@ EffFront = effFont(V_stk,R_stk,0.01,2);
 plot1A;
 
 %Part b
-R_stk_b = (mean(stocks))'+std_stk;
+R_stk_b = (mean(stocks))'+std_stk/sqrt(1085);
 
 [MVP_b,TP_b] = MVTP(R_stk_b,R_rf,V_stk);
 
-EffFront_b = effFont(V_stk,R_stk_b,0.01,10);
+EffFront_b = effFont(V_stk,R_stk_b,0.01,2);
 
 plot1B;
 

@@ -384,7 +384,7 @@ addParameter(p, 'outliers_rand', 0.5, @isnumeric);
 addParameter(p, 'stacked', 'down');
 
 addParameter(p, 'axHand', 0, @ishandle);
-addParameter(p, 'FontSize', 10, @isnumeric);
+addParameter(p, 'FontSize', 18, @isnumeric);
 addParameter(p, 'FontWeight', 'normal');
 addParameter(p, 'Color', 'k');
 addParameter(p, 'BackgroundColor', 'none');
