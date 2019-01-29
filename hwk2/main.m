@@ -9,7 +9,7 @@
 addpath('./functions/','./scripts/');
 
 % Add plot defaults
-plotDefaults;
+plotDefaults;ve 
 %% read data
 stocks = xlsread('Data.xlsx','A1:J1085');
 rf = xlsread('Data.xlsx','K1:K1085');
