@@ -1,0 +1,263 @@
+\documentclass{report}
+\include{preamble}
+
+\usepackage{amsmath}
+\usepackage{bbm}
+
+\begin{document}
+
+
+\section{Part 1: For the 49 industry portfolio spreadsheet:}
+
+\subsection{ }
+Under the CAPM assumptions, the cross-sectinoal regression:
+\begin{center}
+	$R_i = \gamma_0 + \gamma_M \beta_{iM} + \eta_i$
+\end{center}
+for an asset $i$ where $i = 1, \dots, N$, 
+\begin{center}
+	$\gamma_0 = r_f$
+
+	$\gamma_M = E[r_M] - r_f$
+\end{center}
+where $r_f$ represents the risk-free rate - or, where applicable, the $zero-\beta$ rate - and $E[R_M] - r_f$ represents the expected market premium.
+
+\subsection{ }
+Table 1 below summarizes the estimated $\beta$s of each industry against the market, where:
+\begin{center}
+	$R_{i, t} - r_{f, t} = \beta_i (E[R_{M, t}] - r_{f, t}) + \epsilon_{i, t}$ with $t = 1, \dots, T$
+\end{center}
+Note that the regression function in Matlab automatically ignores the missing values.
+
+\begin{table}[ht]
+\centering
+\caption{$\beta_M$ for each portfolio}
+\begin{tabular}{c | c | c | c | c | c | c | c | c | c}
+\hline\hline
+Agric		& Food	& Soda	& Beer	& Smoke	& Toys	& Fun	& Books	& Hshlod	& Clths	\\	
+0.9172	& 0.7254	& 0.8314	& 0.9421	& 0.6287	& 1.2076	& 1.4218	& 1.1166	& 0.9023	& 0.8132	\\	[0.5ex] \hline
+
+Hlth		& MedEq	& Drugs	& Chems	& Rubbr	& Txtls	& BldMt	& Cnstr	& Steel	& FabPr	\\	
+1.1221	& 0.8377	& 0.8365	& 1.0426	& 1.2121	& 1.1389	& 1.1596	& 1.3554	& 1.3570	& 1.1130	\\	[0.5ex] \hline
+
+Mach		& ElcEq	& Autos	& Aero	& Ships	& Guns	& Gold	& Mines	& Coal	& Oil		\\	
+1.2432	& 1.2841	& 1.2521	& 1.3061	& 1.1675	& 0.8383	& 0.6050	& 0.9745	& 1.2998	& 0.8681	\\	[0.5ex] \hline
+
+Util		& Telcm	& PerSv	& BusSv	& Hardw	& Softw	& Chips	& LabEq	& Paper	& Boxes	\\	
+0.7783	& 0.6615	& 1.0900	& 0.8894	& 1.1154	& 1.6363	& 1.3435	& 0.9958	& 1.6758	& 0.9529	\\	[0.5ex] \hline
+
+Trans	& Whlsl	& Rtail	& Meals	& Banks	& Insur	& RlEst	& Fin		& Other	& 		\\	
+1.1376	& 1.0891	& 0.9650	& 0.9455	& 1.0442	& 1.1204	& 1.2787	& 1.3061	& 1.0546	& 		\\	[1ex] \hline \hline
+\end{tabular}
+\end{table}
+
+Then, for each month, running the cross-sectional regression:
+\begin{center}
+	$R_i = \gamma_0 + \gamma_M \beta_{M, i} + \nu_i$ with $i = 1, \dots, N$
+\end{center}
+yields the result, summarized in Table 2 below.
+
+\begin{table}[ht]
+\centering
+\caption{summary statistics for the average values of the estimated $\gamma_0$ and $\gamma_M$}
+\begin{tabular}{c | c | c}
+		& $\gamma_0$	& $\gamma_M$	\\	[0.5ex] 	\hline
+mean	& 0.8069		& 0.2215		\\
+S. E.		& 0.1884		& 0.2527		\\
+$t_{stat}$	& 4.2834		& 0.8768		\\ 	[0.5ex]	\hline \hline
+\end{tabular}
+\end{table}
+
+Here, we test the null hypothesis that the market proxy is mean-variance efficient. If the market proxy portfolio is mean-variance efficient, we should have $\gamma_M = E[r_M] - r_f$. Instead, we perform a test that is more lenient:
+\begin{center}
+	$H_0: \gamma_M \geq 0$ vs $H_1: \gamma_M < 0$
+\end{center}
+
+Based on this result, we observe that for $\gamma_M$,  $t_{stat} = 0.8768 > -1.65 \approx -t_{critical, 0.95}$. Therefore, we fail to reject $H_0: \gamma_M \geq 0$. This implies that we fail to reject the hypothesis that the market proxy is mean-variance efficient at a $5\%$ significance level. .
+
+
+\subsection{ }
+This time, we use the average value of each portfolio across time, adjusted for the missing values, and use the cross-sectional regression:
+\begin{center}
+	$\frac{1}{T} \sum_{i = 1}^{T} R_i = \bar{R_i} = \hat{\gamma_0} + \hat{\gamma_M} \beta_{iM} + \eta_i$ with $i = 1, \dots, N$
+\end{center}
+which yields the result, summarized in Table 3 below.
+
+\begin{table}[ht]
+\centering
+\caption{summary statistics for the estimated $\gamma_0$ and $\gamma_M$}
+\begin{tabular}{c | c | c}
+		& $\gamma_0$	& $\gamma_M$	\\	[0.5ex] 	\hline
+Coefficient	& 0.9078		& 0.1234		\\
+S. E.		& 0.0930		& 0.0846		\\
+$t_{stat}$	& 9.7560		& 1.4572		\\ 	[0.5ex]	\hline \hline
+\end{tabular}
+\end{table}
+
+The values we observe in Table 3 are slightly different from those in Table 2, most likely because we have missing values that affect the estimation process and also because volatility is, in reality, time-varying. The standard errors are different since the estimates for $\gamma_0$ and $\gamma_M$ are different, and the same applies to $t_{stat}$s.
+
+
+The estimation method in (b) should yield a more unbiased and consistent measure of the $\gamma$s since volatility and $\beta$ are time-varying variables. 
+Taking the average of the data across time ignores these variations and, thus, is more likely to result in estimation errors. 
+
+\subsection{ }
+Figure 1 below illustrates the relationship between average portfolio returns over time and portfolio $\beta$s against the market. Under CAPM assumptions, the dots on the plot should form a straight line with a slope of, most likely, a positive value: the market risk premium. The relationship we observe, however, seems neither positive nor strong; it almost seems random with no correlation. 
+
+\begin{figure}[h]
+	\centering
+	\caption{ }
+	\includegraphics[width = 0.9\columnwidth]{D:/works/duke_mqfe/econ676/problem_sets/ps3/figures/1d.png}
+\end{figure}
+
+
+\subsection{ }
+If CAPM holds, the market factor should be sufficient alone in explaining the variation of the returns. Therefore, under CAPM assumptions, we would expect both $\gamma_{size}$ and $\gamma_{B/M}$ to be zero.
+
+\subsection{ }
+
+
+\begin{table}[ht]
+\centering
+\caption{summary statistics for the estimated $\gamma_0$, $\gamma_M$, $\gamma_{size}$, and $\gamma_{BE/ME}$}
+\begin{tabular}{c | c | c | c | c}
+		& $\gamma_0$	& $\gamma_M$	& $\gamma_{size}$	& $\gamma_{BE/ME}$	\\	[0.5ex] 	\hline
+mean	& 0.9921		& 0.0377		& -0.0259			& 0.0175				\\
+S. E.		& 0.3037		& 0.2209		& 0.0403			& 0.0738				\\
+$t_{stat}$	& 3.2571		& 0.1707		& -0.6435			& 0.2379				\\ 	[0.5ex]	\hline \hline
+\end{tabular}
+\end{table}
+
+
+
+
+\newpage
+\section{Part 2: For te 25 Size and BE/ME portfolio}
+
+Table 5 below summarizes the estimated $\beta$s of each industry against the market, where:
+
+\subsection{1)}
+
+\begin{table}[ht]
+\centering
+\caption{$\beta_M$ for each portfolio}
+\begin{tabular}{c | c | c | c | c}
+\hline\hline
+Small/Low	& Small/2	& Small/3	& Small/4	& Small/High	\\	
+1.6303	& 1.4090	& 1.3729	& 1.2694	& 1.3798		\\	[0.5ex] \hline
+
+2/Low	& 2/2	& 2/3	& 2/4	& 2/High		\\	
+1.2659	& 1.2264	& 1.1977	& 1.2125	& 1.3787		\\	[0.5ex] \hline
+
+3/Low	& 3/2	& 3/3	& 3/4	& 3/High		\\	
+1.2451	& 1.1256	& 1.1238	& 1.1596	& 1.3779		\\	[0.5ex] \hline
+
+4/Low	& 4/2	& 4/3	& 4/4	& 4/High		\\	
+1.0919	& 1.0797	& 1.1153	& 1.1541	& 1.4204		\\	[0.5ex] \hline
+	
+Big/Low	& Big/2	& Big/3	& Big/4	& Big/High		\\	
+0.9553	& 0.9498	& 0.9684	& 1.1084	& 1.3119		\\	[1ex] \hline \hline
+\end{tabular}
+\end{table}
+
+Then, for each month, running the cross-sectional regression:
+\begin{center}
+	$R_i = \gamma_0 + \gamma_M \beta_{M, i} + \nu_i$ with $i = 1, \dots, N$
+\end{center}
+yields the result, summarized in Table 6 below.
+
+\begin{table}[ht]
+\centering
+\caption{summary statistics for the average values of the estimated $\gamma_0$ and $\gamma_M$}
+\begin{tabular}{c | c | c}
+		& $\gamma_0$	& $\gamma_M$	\\	[0.5ex] 	\hline
+mean	& 0.6121		& 0.4557		\\
+S. E.		& 0.3292		& 0.3573		\\
+$t_{stat}$	& 1.8595		& 1.2754		\\ 	[0.5ex]	\hline \hline
+\end{tabular}
+\end{table}
+
+Again, for $\gamma_M$, we observe $t_{stat} = 1.2754 > -1.65 \approx -t_{critical, 0.95}$. Therefore, we fail to reject the null hypothesis that the market proxy is a mean-variance efficient portfolio.
+
+
+This time, we use the average value of each portfolio across time. Note that we do have very small number of missing observations this time. As we can see from the values in Table 7, the values are almost identical. The only value that is different is the standard error for $\gamma_M$. This is probably due to the different way standard errors are computed on coefficients when running a linear regression.
+
+\begin{table}[ht]
+\centering
+\caption{summary statistics for the estimated $\gamma_0$ and $\gamma_M$}
+\begin{tabular}{c | c | c}
+		& $\gamma_0$	& $\gamma_M$	\\	[0.5ex] 	\hline
+Coefficient	& 0.6121		& 0.4557		\\
+S. E.		& 0.3248		& 0.2637		\\
+$t_{stat}$	& 1.8844		& 1.7282		\\ 	[0.5ex]	\hline \hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{figure}[h]
+	\centering
+	\caption{ }
+	\includegraphics[width = 0.9\columnwidth]{D:/works/duke_mqfe/econ676/problem_sets/ps3/figures/2d.png}
+\end{figure}
+
+
+
+\begin{table}[ht]
+\centering
+\caption{summary statistics for the estimated $\gamma_0$, $\gamma_M$, $\gamma_{size}$, and $\gamma_{BE/ME}$}
+\begin{tabular}{c | c | c | c | c}
+		& $\gamma_0$	& $\gamma_M$	& $\gamma_{size}$	& $\gamma_{BE/ME}$	\\	[0.5ex] 	\hline
+mean	& 2.1831		& -0.5322		& -0.0798			& 0.2645				\\
+S. E.		& 0.4295		& 0.3688		& 0.0315			& 0.0608				\\
+$t_{stat}$	& 5.0824		& -1.4433		& -2.5312			& 4.3511				\\ 	[0.5ex]	\hline \hline
+\end{tabular}
+\end{table}
+
+
+
+\subsection{2)}
+
+
+\begin{table}[ht]
+\centering
+\caption{summary statistics for the estimated $\gamma_0$ and $\gamma_M$}
+\begin{tabular}{c | c | c}
+		& $\gamma_0$	& $\gamma_M$	\\	[0.5ex] 	\hline
+Coefficient	& 0.2769 		& 2.5748		\\
+S. E.		& 0.0010		& 0.0028		\\
+$t_{stat}$	& 282.22 		& 935.13		\\ 	[0.5ex]	\hline \hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+	\centering
+	\caption{ }
+	\includegraphics[width = 0.9\columnwidth]{D:/works/duke_mqfe/econ676/problem_sets/ps3/figures/2d_2.png}
+\end{figure}
+
+
+
+
+
+
+\begin{table}[ht]
+\centering
+\caption{summary statistics for the estimated $\gamma_0$ and $\gamma_M$}
+\begin{tabular}{c | c | c}
+		& $\gamma_0$	& $\gamma_M$	\\	[0.5ex] 	\hline
+Coefficient	& 0.3380 		& 3.1077		\\
+S. E.		& 0.0303		& 0.1096		\\
+$t_{stat}$	& 11.17 		& 28.344		\\ 	[0.5ex]	\hline \hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+	\centering
+	\caption{ }
+	\includegraphics[width = 0.9\columnwidth]{D:/works/duke_mqfe/econ676/problem_sets/ps3/figures/2d_3.png}
+\end{figure}
+
+
+
+
+\end{document}
