@@ -19,7 +19,7 @@ date.pastret = xlsread('Problem_Set6.xls','date_125');
 %read returns
 r_ind = xlsread('Problem_Set6.xls','industry_30');
 r_FFF = xlsread('Problem_Set6.xls','FFF');
-r_com = xlsread('Problem_Set6.xls','com');
+r_com = xlsread('Problem_Set6.xls','com')*100;
 r_pastret.pr1 = xlsread('Problem_Set6.xls','PR1');
 r_pastret.pr212 = xlsread('Problem_Set6.xls','PR212');
 r_pastret.pr1360 = xlsread('Problem_Set6.xls','PR1360');
@@ -123,10 +123,10 @@ temp = nancov(indmom.r212(523:1074),commom.r212);
 commom.corr.corr212 = temp(1,2)/(nanstd(indmom.r212(523:1074))*nanstd(commom.r212));
 clear temp
 %% part g-iv
-result = fitlm([r_FFF(523:1074,1:3),commom.r112-r_FFF(523:1074,4)],indmom.r112(523:1074));
+result = fitlm([r_FFF(523:1074,1:3),commom.r112],indmom.r112(523:1074));
 indmom.FF3.result_com = result.Coefficients;
 % part g-v
-result = fitlm([r_FFF(523:1074,1:3),indmom.r112(523:1074)-r_FFF(523:1074,4)],commom.r112);
+result = fitlm([r_FFF(523:1074,1:3),indmom.r112(523:1074)],commom.r112);
 commom.FF3.result_com = result.Coefficients;
 %% part h
 
